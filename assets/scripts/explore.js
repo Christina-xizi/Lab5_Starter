@@ -15,8 +15,16 @@ function init() {
     voices = synth.getVoices();
     
     // Clear existing options but keep the default first option
-    while (voiceSelect.options.length > 1) {
-      voiceSelect.remove(1);
+    if (voiceSelect.options.length === 0) {
+      const defaultOption = document.createElement("option");
+      defaultOption.textContent = "Select Voice";
+      defaultOption.disabled = true;
+      defaultOption.selected = true;
+      voiceSelect.appendChild(defaultOption);
+    } else {
+      while (voiceSelect.options.length > 1) {
+        voiceSelect.remove(1);
+      }
     }
 
     for (let i = 0; i < voices.length; i++) {
@@ -40,6 +48,8 @@ function init() {
   }
 
   speakButton.addEventListener("click", () => {
+    if (!textInput.value.trim()) return;
+    
     const utterThis = new SpeechSynthesisUtterance(textInput.value);
     
     if (voiceSelect.selectedIndex > 0) {
