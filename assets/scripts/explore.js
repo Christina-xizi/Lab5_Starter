@@ -15,6 +15,7 @@ function init() {
     voices = synth.getVoices();
     
     // Clear existing options but keep the default first option
+
     if (voiceSelect.options.length === 0) {
       const defaultOption = document.createElement("option");
       defaultOption.textContent = "Select Voice";
@@ -48,6 +49,7 @@ function init() {
   }
 
   speakButton.addEventListener("click", () => {
+
     if (!textInput.value.trim()) return;
     
     const utterThis = new SpeechSynthesisUtterance(textInput.value);
